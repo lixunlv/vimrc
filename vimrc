@@ -27,6 +27,12 @@ map <silent> <leader>ss :source ~/.vimrc<cr>
 "Fast editing of .vimrc
 map <silent> <leader>ee :e ~/.vimrc<cr>
 
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+
 noremap H ^
 " 拷贝不带回车
 noremap L g_
@@ -54,14 +60,14 @@ set wildmenu
 " 命令行补全方式（第一个tab列出可选项并匹配，后面循环匹配所有可选项）
 set wildmode=list:longest,full
 
-"Always show current position
-set ruler
+"Always show current position, 有statusline了
+"set ruler
 
 " Height of the command bar
 set cmdheight=2
 
 " 启用回退键
-set backspace=eol,start,indent
+"set backspace=eol,start,indent
 
 " h,l到行尽头时，可以继续移到上(下)一行
 set whichwrap+=<,>,h,l
@@ -269,7 +275,7 @@ inoremap <c-l> <c-o>w
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l,%c
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -403,6 +409,8 @@ NeoBundle 'Shougo/vimproc.vim', {
 
 NeoBundle 'Shougo/vimshell.vim'
 
+NeoBundle 'ngmy/vim-rubocop'
+
 " Required:
 call neobundle#end()
 
@@ -421,7 +429,7 @@ let g:neocomplete#max_keyword_width = 100
 let g:neocomplete#manual_completion_start_length = 2
 
 " buffer的优先级提高
-call neocomplete#custom#source('buffer', 'rank' , 1000)
+"call neocomplete#custom#source('buffer', 'rank' , 1000)
 
 " Plugin key-mappings.
 "inoremap <expr><C-g> neocomplete#undo_completion()
@@ -445,14 +453,14 @@ function! s:my_cr_function()
 endfunction
 
 " ruby completion
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
+"if !exists('g:neocomplete#force_omni_input_patterns')
+"  let g:neocomplete#force_omni_input_patterns = {}
+"endif
 
-let g:neocomplete#force_omni_input_patterns.ruby =
-      \ '[^. *\t]\.\w*\|\h\w*::'
+"let g:neocomplete#force_omni_input_patterns.ruby =
+"      \ '[^. *\t]\.\w*\|\h\w*::'
 
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VimFiler
@@ -504,12 +512,16 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => AutoClose
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:AutoClosePairs_del = "'"
-
-" csw' 增加单引号
+" let g:AutoClosePairs_del = "'"
 " v->select->,a( 选中增加()
-" ds' 删除引号
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => surround
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" csw' 增加单引号
+" v->select->S( 选中增加()
 " cs(' 替换(为'
+" ds' 删除引号
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => commenter
@@ -573,13 +585,29 @@ let g:ag_highlight=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => TaskList
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:tlTokenList = ['TODO', 'todo', 'FIXME', 'fixme']
+let g:tlTokenList = ['TODO', 'FIXME', 'OPTIMIZE', 'HACK', 'REVIEW']
 nmap <F4> :TaskList <CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vimshell
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <F7> :VimShell <CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => RuboCop
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:vimrubocop_keymap = 0
+"nmap <Leader>ru :RuboCop<CR>
+
+"o    to open (same as enter)
+"go   to preview file (open but maintain focus on ack.vim results)
+"t    to open in new tab
+"T    to open in new tab silently
+"h    to open in horizontal split
+"H    to open in horizontal split silently
+"v    to open in vertical split
+"gv   to open in vertical split silently
+"q    to close the quickfix window
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => taglist
