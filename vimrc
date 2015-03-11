@@ -40,6 +40,7 @@ noremap L g_
 " +/-: Increment number
 nnoremap + <c-a>
 nnoremap - <c-x>
+inoremap <c-v> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
 "When .vimrc is edited, reload it
 autocmd! bufwritepost .vimrc source ~/.vimrc
@@ -140,7 +141,8 @@ set ffs=unix,dos,mac
 
 "Action Script 语法高亮
 augroup filetypedetect
- au! BufNewFile,BufRead *.as  setf actionscript
+ au! BufNewFile,BufRead *.as set filetype=actionscript
+ au! BufNewFile,BufRead *.md set filetype=markdown
 augroup END
 
 autocmd FileType actionscript setlocal shiftwidth=4 tabstop=4
@@ -282,7 +284,6 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " copy selection to OS X clipboard
 set clipboard=unnamed
-set switchbuf+=usetab,newtab
 
 " 加快搜索替换
 noremap ,, :%s:::g<Left><Left><Left>
@@ -376,6 +377,9 @@ NeoBundle 'terryma/vim-multiple-cursors'
 " 文件搜索跳转
 NeoBundle 'Shougo/unite.vim'
 
+" 多文件内批量替换
+NeoBundle 'thinca/vim-qfreplace'
+
 " 目录
 NeoBundle 'Shougo/vimfiler.vim'
 
@@ -409,7 +413,11 @@ NeoBundle 'Shougo/vimproc.vim', {
 
 NeoBundle 'Shougo/vimshell.vim'
 
+" ruby代码合规检查
 NeoBundle 'ngmy/vim-rubocop'
+
+" markdown实时预览
+NeoBundle 'suan/vim-instant-markdown'
 
 " Required:
 call neobundle#end()
@@ -564,7 +572,7 @@ let g:unite_source_grep_default_opts = '-i --follow --line-numbers --nocolor --n
 let g:unite_source_grep_recursive_opt = ''
 
 " === find file
-nnoremap <c-p> :<C-u>Unite -start-insert file_rec/async:!<CR>
+nnoremap <c-p> :<C-u>Unite -start-insert buffer file_rec/async:!<CR>
 
 let g:unite_source_rec_async_command = 'find -L '
 set wildignore=.svn,.svn/**,*.log,*.png,*.jpg,*.pl
@@ -648,6 +656,11 @@ nmap <leader>zc :VCSCommit! <CR>
 "|<Leader>|zl VCSLog
 "|<Leader>|zL VCSLock
 "|<Leader>|zU VCSUnlock
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ngmy/vim-rubocop
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:instant_markdown_slow = 1
 
 filetype plugin indent on
 
