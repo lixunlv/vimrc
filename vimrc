@@ -18,8 +18,9 @@ nmap <leader>w :w!<cr>
 " 用超级权限save
 cmap w!! w !sudo tee >/dev/null
 
-" 退出并保存session
-nmap <F5> :wa<Bar>exe "mksession! " . v:this_session<Bar>:qa<CR>
+" 退出并删除buffer, <bar>用来分隔命令
+"nmap <F5> :wa<Bar>exe "mksession! " . v:this_session<Bar>:qa<CR>
+nmap <F5> :wa<Bar>:bd *<c-a><Bar>:qa<cr>
 
 "Fast reloading of the .vimrc
 map <silent> <leader>ss :source ~/.vimrc<cr>
