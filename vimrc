@@ -551,7 +551,7 @@ map <D-/> <Leader>c<Space>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " glob setting
 " Press <C-l> refresh candidate window
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 "call unite#custom#profile('default', 'context', {
 "      \   'start_insert' : 1
