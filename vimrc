@@ -1,4 +1,96 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NeoBundle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"NeoBundle Scripts-----------------------------
+if has('vim_starting')
+  if &compatible
+    set nocompatible               " Be iMproved
+  endif
+
+  " Required:
+  set runtimepath+=/Users/lixunlu/.vim/bundle/neobundle.vim/
+endif
+
+" Required:
+call neobundle#begin(expand('/Users/lixunlu/.vim/bundle'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" 自动补全提示
+NeoBundle 'Shougo/neocomplete.vim'
+
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
+
+" 注释
+NeoBundle 'The-NERD-Commenter'
+
+" 自动加括号, 注意:输入右边括号,会自动跳到已有的右边括号
+NeoBundle 'Townk/vim-autoclose'
+NeoBundle 'surround.vim'
+NeoBundle 'repeat.vim'
+
+" Color themems
+NeoBundle 'altercation/vim-colors-solarized'
+
+" 多光标
+NeoBundle 'terryma/vim-multiple-cursors'
+
+" 文件搜索跳转
+NeoBundle 'Shougo/unite.vim'
+
+" 多文件内批量替换
+NeoBundle 'thinca/vim-qfreplace'
+
+" 目录
+NeoBundle 'Shougo/vimfiler.vim'
+
+" tag跳转
+NeoBundle 'tsukkee/unite-tag'
+
+" 多文件中搜索字符串
+NeoBundle 'rking/ag.vim'
+
+" 显示todo列表
+NeoBundle 'vim-scripts/TaskList.vim'
+
+" function 列表
+NeoBundle 'taglist.vim'
+
+" 开关quickfix窗口
+NeoBundle 'milkypostman/vim-togglelist'
+
+" svn插件
+NeoBundle 'vim-scripts/vcscommand.vim'
+
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
+
+NeoBundle 'Shougo/vimshell.vim'
+
+" ruby代码合规检查
+NeoBundle 'ngmy/vim-rubocop'
+
+" markdown实时预览
+NeoBundle 'suan/vim-instant-markdown'
+
+" Required:
+call neobundle#end()
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
@@ -121,6 +213,11 @@ set tm=500
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+filetype plugin indent on
+
+" Enable syntax highlighting
+syntax enable
+
 colorscheme solarized
 set t_Co=256
 set background=dark
@@ -150,7 +247,6 @@ autocmd FileType actionscript setlocal shiftwidth=4 tabstop=4
 
 autocmd FileType actionscript set omnifunc=actionscriptcomplete#CompleteAS
 autocmd FileType actionscript :set dictionary=~/.vim/dict/actionscript.dict
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -336,98 +432,6 @@ function! CopyMatches(reg)
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NeoBundle
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"NeoBundle Scripts-----------------------------
-if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
-  endif
-
-  " Required:
-  set runtimepath+=/Users/lixunlu/.vim/bundle/neobundle.vim/
-endif
-
-" Required:
-call neobundle#begin(expand('/Users/lixunlu/.vim/bundle'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" 自动补全提示
-NeoBundle 'Shougo/neocomplete.vim'
-
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-
-" 注释
-NeoBundle 'The-NERD-Commenter'
-
-" 自动加括号, 注意:输入右边括号,会自动跳到已有的右边括号
-NeoBundle 'Townk/vim-autoclose'
-NeoBundle 'surround.vim'
-NeoBundle 'repeat.vim'
-
-" Color themems
-NeoBundle 'altercation/vim-colors-solarized'
-
-" 多光标
-NeoBundle 'terryma/vim-multiple-cursors'
-
-" 文件搜索跳转
-NeoBundle 'Shougo/unite.vim'
-
-" 多文件内批量替换
-NeoBundle 'thinca/vim-qfreplace'
-
-" 目录
-NeoBundle 'Shougo/vimfiler.vim'
-
-" tag跳转
-NeoBundle 'tsukkee/unite-tag'
-
-" 多文件中搜索字符串
-NeoBundle 'rking/ag.vim'
-
-" 显示todo列表
-NeoBundle 'vim-scripts/TaskList.vim'
-
-" function 列表
-NeoBundle 'taglist.vim'
-
-" 开关quickfix窗口
-NeoBundle 'milkypostman/vim-togglelist'
-
-" svn插件
-NeoBundle 'vim-scripts/vcscommand.vim'
-
-NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
-
-NeoBundle 'Shougo/vimshell.vim'
-
-" ruby代码合规检查
-NeoBundle 'ngmy/vim-rubocop'
-
-" markdown实时预览
-NeoBundle 'suan/vim-instant-markdown'
-
-" Required:
-call neobundle#end()
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => neocomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:neocomplete#cursor_hold_i_time = 1
@@ -441,8 +445,8 @@ let g:neocomplete#enable_fuzzy_completion = 0
 set completeopt-=preview
 
 " buffer的优先级提高
-call neocomplete#custom#source('nsnip', 'rank' , 1200)
-call neocomplete#custom#source('buffer', 'rank' , 1000)
+"call neocomplete#custom#source('nsnip', 'rank' , 1200)
+"call neocomplete#custom#source('buffer', 'rank' , 1000)
 
 " Plugin key-mappings.
 "inoremap <expr><C-g> neocomplete#undo_completion()
@@ -551,7 +555,7 @@ map <D-/> <Leader>c<Space>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " glob setting
 " Press <C-l> refresh candidate window
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 "call unite#custom#profile('default', 'context', {
 "      \   'start_insert' : 1
@@ -563,6 +567,8 @@ autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
   imap <silent><buffer><expr> <C-s> unite#do_action('split')
   imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+  map <silent><buffer><expr> <C-s> unite#do_action('split')
+  map <silent><buffer><expr> <C-v> unite#do_action('vsplit')
 endfunction
 
 " === grep
@@ -573,7 +579,7 @@ let g:unite_source_grep_default_opts = '-i --follow --line-numbers --nocolor --n
 let g:unite_source_grep_recursive_opt = ''
 
 " === find file
-nnoremap <c-p> :<C-u>Unite -start-insert buffer file_rec/async:!<CR>
+nnoremap <c-p> :<C-u>Unite -start-insert file_rec/async:!<CR>
 
 let g:unite_source_rec_async_command = 'find -L '
 set wildignore=.svn,.svn/**,*.log,*.png,*.jpg,*.pl
@@ -603,6 +609,8 @@ nmap <F4> :TaskList <CR>
 " => vimshell
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <F7> :VimShell <CR>
+
+set shell=/bin/bash\ --login
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => RuboCop
@@ -663,7 +671,3 @@ nmap <leader>zc :VCSCommit! <CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:instant_markdown_slow = 1
 
-filetype plugin indent on
-
-" Enable syntax highlighting
-syntax enable
