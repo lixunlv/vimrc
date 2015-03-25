@@ -157,6 +157,8 @@ set wildmode=list:longest,full
 "Always show current position, 有statusline了
 "set ruler
 
+set colorcolumn=80
+
 " Height of the command bar
 set cmdheight=2
 
@@ -574,15 +576,16 @@ endfunction
 " === grep
 nnoremap f/ :Unite grep:!<cr>
 let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '-i --follow --line-numbers --nocolor --nogroup --hidden -U ' .
+let g:unite_source_grep_default_opts = '-i -f --nocolor --nogroup --hidden -U ' .
       \ '--ignore *.log --ignore tags --ignore *.svn --ignore *.png --ignore *.jpg --ignore *.pl'
 let g:unite_source_grep_recursive_opt = ''
 
 " === find file
 nnoremap <c-p> :<C-u>Unite -start-insert file_rec/async:!<CR>
 
-let g:unite_source_rec_async_command = 'find -L '
-set wildignore=.svn,.svn/**,*.log,*.png,*.jpg,*.pl
+"let g:unite_source_rec_async_command = 'find -L '
+let g:unite_source_rec_async_command = 'ag -i -f -U --nocolor --nogroup -g ""'
+set wildignore=.svn,.svn/**,*.log,*.png,*.jpg,*.pl,app_icons/*,swf_debug/*,images/*,flash_icons/*,update/*
 call unite#custom#source('file_rec/async', 'ignore_globs', split(&wildignore, ','))
 
 " === yank history
@@ -610,7 +613,40 @@ nmap <F4> :TaskList <CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <F7> :VimShell <CR>
 
+let g:vimshell_use_terminal_command = '/bin/bash --login'
+
 set shell=/bin/bash\ --login
+
+"function! s:pushEnv(shname)
+  "if a:shname == 'bash'
+    "let l:envs = split(system('bash -c "source ~/.bashrc; source ~/.profile; export"'))
+  "else
+    "return
+  "endif
+
+  "for l:env in l:envs
+    "unlet! l:envkeyval
+    "unlet! l:envkey
+    "unlet! l:envval
+    "let l:envkeyval = split(l:env, '=')
+    "let l:envkey = l:envkeyval[0]
+    "unlet l:envkeyval[0]
+    "let l:envval = join(l:envkeyval, '=')
+
+    "if l:envkeyval == []
+      "continue
+    "endif
+
+    "if l:envval[len(l:envval)-1] != '"'
+      "let l:envval = l:envval . '"'
+    "endif
+    "echo
+
+    ""echo l:envkey. '='. l:envval
+    "execute 'let $' . l:envkey . '=' . l:envval . ''
+  "endfor
+"endfunction
+"call s:pushEnv('bash')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => RuboCop
