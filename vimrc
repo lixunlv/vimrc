@@ -8,11 +8,11 @@ if has('vim_starting')
   endif
 
   " Required:
-  set runtimepath+=/Users/lixunlu/.vim/bundle/neobundle.vim/
+  set runtimepath+=/Users/lixunlv/.vim/bundle/neobundle.vim/
 endif
 
 " Required:
-call neobundle#begin(expand('/Users/lixunlu/.vim/bundle'))
+call neobundle#begin(expand('/Users/lixunlv/.vim/bundle'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -49,6 +49,8 @@ NeoBundle 'Shougo/vimfiler.vim'
 
 " tag跳转
 NeoBundle 'tsukkee/unite-tag'
+
+NeoBundle 'mustache/vim-mustache-handlebars'
 
 " 多文件中搜索字符串
 NeoBundle 'rking/ag.vim'
@@ -205,6 +207,10 @@ set nowrap
 " 用纵向打开比较窗口
 set diffopt=vertical
 
+"set relativenumber
+"set undofile
+
+
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
@@ -243,6 +249,7 @@ set ffs=unix,dos,mac
 augroup filetypedetect
  au! BufNewFile,BufRead *.as set filetype=actionscript
  au! BufNewFile,BufRead *.md set filetype=markdown
+ au! BufNewFile,BufRead *.hbs set filetype=mustache
 augroup END
 
 autocmd FileType actionscript setlocal shiftwidth=4 tabstop=4
@@ -262,10 +269,9 @@ set noswapfile
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always uses spaces instead of tab characters
-set expandtab
-
 " 用空格替换tab
-"map <F10> :retab <CR> :%s:\s\+$::<CR>
+set expandtab
+map <F10> :retab <CR> :%s:\s\+$::<CR>
 
 " 保存文件时自动删除行尾空格或Tab
 au BufWritePre * sil %s/\s\+$//e
@@ -275,6 +281,7 @@ set smarttab
 
 set shiftwidth=2
 set softtabstop=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr
@@ -470,12 +477,12 @@ function! s:my_cr_function()
 endfunction
 
 " ruby completion
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
+"if !exists('g:neocomplete#force_omni_input_patterns')
+  "let g:neocomplete#force_omni_input_patterns = {}
+"endif
 
 "let g:neocomplete#force_omni_input_patterns.ruby =
-"      \ '[^. *\t]\.\w*\|\h\w*::'
+     "\ '[^. *\t]\.\w*\|\h\w*::'
 
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
@@ -581,11 +588,10 @@ let g:unite_source_grep_default_opts = '-i -f --nocolor --nogroup --hidden -U ' 
 let g:unite_source_grep_recursive_opt = ''
 
 " === find file
-nnoremap <c-p> :<C-u>Unite -start-insert file_rec/async:!<CR>
+nnoremap <c-m> :<C-u>Unite -start-insert file_rec/async:!<CR>
 
-"let g:unite_source_rec_async_command = 'find -L '
-let g:unite_source_rec_async_command = 'ag -i -f -U --nocolor --nogroup -g ""'
-set wildignore=.svn,.svn/**,*.log,*.png,*.jpg,*.pl,app_icons/*,swf_debug/*,images/*,flash_icons/*,update/*
+let g:unite_source_rec_async_command = ['ag', '-i', '-f', '-U', '--nocolor', '--nogroup', '-g', '']
+set wildignore=.svn,.svn/**,*.log,*.png,*.jpg,*.pl,swf_debug/*,flash_icons/*,*.un~,tmp/**
 call unite#custom#source('file_rec/async', 'ignore_globs', split(&wildignore, ','))
 
 " === yank history
@@ -676,6 +682,8 @@ let Tlist_WinWidth = 40
 let Tlist_Inc_Winwidth = 1
 autocmd BufWritePost * :TlistUpdate
 :set noballooneval
+:set balloondelay=100000
+:setlocal balloonexpr=
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => svn
