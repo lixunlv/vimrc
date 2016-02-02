@@ -237,7 +237,11 @@ if has("gui_running")
   set guitablabel=%M\ %t
 endif
 
-set guifont=Monaco:h14          " 字体 && 字号
+"set guifont=Monaco:h14          " 字体 && 字号
+"set guifont=DejaVu_Sans_Mono:h14          " 字体 && 字号
+set guifont=Menlo:h14          " 字体 && 字号
+
+set linespace=5
 
 " 自动判断编码时，依次尝试以下编码：
 set fileencodings=utf-8,ucs-bom,cp936,gbk,gb2312,big5,latin1
