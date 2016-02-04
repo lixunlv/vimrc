@@ -47,6 +47,9 @@ NeoBundle 'thinca/vim-qfreplace'
 " 目录
 NeoBundle 'Shougo/vimfiler.vim'
 
+" 拷贝历史
+NeoBundle 'Shougo/neoyank.vim'
+
 " tag跳转
 NeoBundle 'tsukkee/unite-tag'
 
@@ -241,7 +244,7 @@ endif
 "set guifont=DejaVu_Sans_Mono:h14          " 字体 && 字号
 set guifont=Menlo:h14          " 字体 && 字号
 
-set linespace=5
+set linespace=3
 
 " 自动判断编码时，依次尝试以下编码：
 set fileencodings=utf-8,ucs-bom,cp936,gbk,gb2312,big5,latin1
@@ -594,8 +597,8 @@ let g:unite_source_grep_recursive_opt = ''
 " === find file
 nnoremap <c-m> :<C-u>Unite -start-insert file_rec/async:!<CR>
 
-let g:unite_source_rec_async_command = ['ag', '-i', '-f', '-U', '--nocolor', '--nogroup', '-g', '']
-set wildignore=.svn,.svn/**,*.log,*.png,*.jpg,*.pl,swf_debug/*,flash_icons/*,*.un~,tmp/**
+"let g:unite_source_rec_async_command = ['ag', '-i', '-f', '-U', '--nocolor', '--nogroup', '-g', '']
+set wildignore=.svn,.svn/**,*.log,*.png,*.jpg,*.pl,swf_debug/*,flash_icons/*,*.un~,tmp/**,node_modules/**,.idea/**,dist/**
 call unite#custom#source('file_rec/async', 'ignore_globs', split(&wildignore, ','))
 
 " === yank history
