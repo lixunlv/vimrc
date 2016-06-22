@@ -21,6 +21,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " 自动补全提示
 NeoBundle 'Shougo/neocomplete.vim'
 
+" 代码模板
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 
@@ -43,6 +44,10 @@ NeoBundle 'Shougo/unite.vim'
 
 " 多文件内批量替换
 NeoBundle 'thinca/vim-qfreplace'
+" 1.用unite搜索f/
+" 2.用空格选择搜索结果
+" 3.按a，选replace
+" 4.编辑结果，,w存盘
 
 " 目录
 NeoBundle 'Shougo/vimfiler.vim'
@@ -52,8 +57,6 @@ NeoBundle 'Shougo/neoyank.vim'
 
 " tag跳转
 NeoBundle 'tsukkee/unite-tag'
-
-NeoBundle 'mustache/vim-mustache-handlebars'
 
 " 多文件中搜索字符串
 NeoBundle 'rking/ag.vim'
@@ -66,6 +69,7 @@ NeoBundle 'taglist.vim'
 
 " 开关quickfix窗口
 NeoBundle 'milkypostman/vim-togglelist'
+" ,q 打开quickfix
 
 " svn插件
 NeoBundle 'vim-scripts/vcscommand.vim'
@@ -531,6 +535,11 @@ let g:vimfiler_marked_file_icon = '*'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => multi_cursor
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:multi_cursor_next_key='<C-n>'
+" let g:multi_cursor_prev_key='<C-p>'
+" let g:multi_cursor_skip_key='<C-x>'
+" let g:multi_cursor_quit_key='<Esc>'
+
 let g:multi_cursor_exit_from_insert_mode = 0
 
 " Called once right before you start selecting multiple cursors
@@ -591,11 +600,11 @@ map <D-/> <Leader>c<Space>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " glob setting
 " Press <C-l> refresh candidate window
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-"call unite#custom#profile('default', 'context', {
-"      \   'start_insert' : 1
-"      \ })
+call unite#custom#profile('default', 'context', {
+     \   'start_insert' : 1
+     \ })
 
 nnoremap <leader>ll :<C-u>UniteResume<CR>
 
