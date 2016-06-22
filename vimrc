@@ -242,9 +242,7 @@ endif
 
 "set guifont=Monaco:h14          " 字体 && 字号
 "set guifont=DejaVu_Sans_Mono:h14          " 字体 && 字号
-set guifont=Menlo:h14          " 字体 && 字号
-
-set linespace=3
+set guifont=Meslo\ LG\ M:h14         " 字体 && 字号
 
 " 自动判断编码时，依次尝试以下编码：
 set fileencodings=utf-8,ucs-bom,cp936,gbk,gb2312,big5,latin1
@@ -340,8 +338,10 @@ set viminfo^='1000
 " Remember info about open buffers on close
 set viminfo^=%
 
-set sessionoptions-=folds
+"set sessionoptions-=folds
 set sessionoptions-=options
+set foldmethod=indent
+set foldlevel=9999
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Insert Mode Ctrl Key Mappings
@@ -508,6 +508,26 @@ let g:vimfiler_tree_closed_icon = '▸'
 let g:vimfiler_file_icon = '-'
 let g:vimfiler_marked_file_icon = '*'
 
+" m :move
+" c :copy
+" d :delete
+" r :rename
+" K :make directory
+" N :new file
+" enter :cd or edit
+" backspace :to parent
+" h :smart close or up to parent
+" l :smart expand or edit
+" o :expand or edit
+" ~ :to home
+" \ :to root
+" & :to project root
+" q :hide
+" Q :exit
+" yy :yank full path
+" gr :grep
+" gf :find
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => multi_cursor
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -598,7 +618,7 @@ let g:unite_source_grep_recursive_opt = ''
 nnoremap <c-m> :<C-u>Unite -start-insert file_rec/async:!<CR>
 
 "let g:unite_source_rec_async_command = ['ag', '-i', '-f', '-U', '--nocolor', '--nogroup', '-g', '']
-set wildignore=.svn,.svn/**,*.log,*.png,*.jpg,*.pl,swf_debug/*,flash_icons/*,*.un~,tmp/**,node_modules/**,.idea/**,dist/**
+set wildignore=.svn,.svn/**,*.log,*.png,*.jpg,*.pl,swf_debug/*,flash_icons/*,*.un~,tmp/**,node_modules/**,.idea/**,dist/**,360/order/**
 call unite#custom#source('file_rec/async', 'ignore_globs', split(&wildignore, ','))
 
 " === yank history
