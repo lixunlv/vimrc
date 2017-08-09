@@ -1,107 +1,98 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NeoBundle
+" => Plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"NeoBundle Scripts-----------------------------
-if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
-  endif
+call plug#begin('~/.vim/plugged')
 
-  " Required:
-  set runtimepath+=/Users/lixunlv/.vim/bundle/neobundle.vim/
-endif
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" shell CTRL-T 此目录下及子目录文件
+" shell CTRL-R 历史命令
+" shell ALT-C 进入子目录
 
-" Required:
-call neobundle#begin(expand('/Users/lixunlv/.vim/bundle'))
+Plug 'valloric/youcompleteme'
 
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+Plug 'WolfgangMehner/bash-support'
 
 " 自动补全提示
-NeoBundle 'Shougo/neocomplete.vim'
+Plug 'Shougo/neocomplete.vim'
 
 " 代码模板
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
+"Plug 'Shougo/neosnippet'
+"Plug 'Shougo/neosnippet-snippets'
 
 " 注释
-NeoBundle 'The-NERD-Commenter'
+Plug 'scrooloose/nerdcommenter'
 
 " 自动加括号, 注意:输入右边括号,会自动跳到已有的右边括号
-NeoBundle 'Townk/vim-autoclose'
-NeoBundle 'surround.vim'
-NeoBundle 'repeat.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 
 " Color themems
-NeoBundle 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 
-" 多光标
-NeoBundle 'terryma/vim-multiple-cursors'
+" 多光标(选中多个后，可以批量更改，重构用）
+Plug 'terryma/vim-multiple-cursors'
 
 " 文件搜索跳转
-NeoBundle 'Shougo/unite.vim'
+Plug 'Shougo/unite.vim'
+" <c-g> exit
 
 " 多文件内批量替换
-NeoBundle 'thinca/vim-qfreplace'
+Plug 'thinca/vim-qfreplace'
 " 1.用unite搜索f/
 " 2.用空格选择搜索结果
 " 3.按a，选replace
 " 4.编辑结果，,w存盘
 
 " 目录
-NeoBundle 'Shougo/vimfiler.vim'
+Plug 'Shougo/vimfiler.vim'
 
 " 拷贝历史
-NeoBundle 'Shougo/neoyank.vim'
+Plug 'Shougo/neoyank.vim'
+" <D-y>
 
-" tag跳转
-NeoBundle 'tsukkee/unite-tag'
+" tag跳转 leader.
+Plug 'tsukkee/unite-tag'
 
 " 多文件中搜索字符串
-NeoBundle 'rking/ag.vim'
+Plug 'rking/ag.vim'
 
 " 显示todo列表
-NeoBundle 'vim-scripts/TaskList.vim'
+Plug 'vim-scripts/TaskList.vim'
 
 " function 列表
-NeoBundle 'taglist.vim'
+Plug 'vim-scripts/taglist.vim'
 
 " 开关quickfix窗口
-NeoBundle 'milkypostman/vim-togglelist'
+Plug 'milkypostman/vim-togglelist'
 " ,q 打开quickfix
 
 " svn插件
-NeoBundle 'vim-scripts/vcscommand.vim'
+Plug 'vim-scripts/vcscommand.vim'
 
-NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
-
-NeoBundle 'Shougo/vimshell.vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Shougo/vimshell.vim'
 
 " ruby代码合规检查
-NeoBundle 'ngmy/vim-rubocop'
+Plug 'ngmy/vim-rubocop'
 
 " markdown实时预览
-NeoBundle 'suan/vim-instant-markdown'
+Plug 'suan/vim-instant-markdown'
 
-" Required:
-call neobundle#end()
+" 搜索api
+Plug 'rizzatti/dash.vim'
+" <leader>d
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
+
+
+call plug#end()
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Sets how many lines of history VIM has to remember
 set history=700
 
@@ -115,6 +106,10 @@ let g:mapleader = ","
 
 " 快速保存
 nmap <leader>w :w!<cr>
+nmap <c-q> g;
+
+" 拷贝文件路径
+nmap cp :let @+ = expand("%")
 
 " 用超级权限save
 cmap w!! w !sudo tee >/dev/null
@@ -135,6 +130,8 @@ map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
+nmap <silent> <leader>d <Plug>DashSearch
+
 noremap H ^
 " 拷贝不带回车
 noremap L g_
@@ -144,7 +141,7 @@ nnoremap + <c-a>
 nnoremap - <c-x>
 inoremap <c-v> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
-"When .vimrc is edited, reload it
+" When .vimrc is edited, reload it
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -189,7 +186,6 @@ map <silent> <leader><cr> :noh<cr>
 " ctrl+c to toggle highlight.
 "let hlstate=0
 "nnoremap <c-c> :if (hlstate%2 == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=hlstate+1<cr>
-
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
@@ -227,8 +223,9 @@ set tm=500
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-filetype plugin indent on
+filetype on
+filetype plugin on
+filetype indent on
 
 " Enable syntax highlighting
 syntax enable
@@ -246,7 +243,7 @@ endif
 
 "set guifont=Monaco:h14          " 字体 && 字号
 "set guifont=DejaVu_Sans_Mono:h14          " 字体 && 字号
-set guifont=Meslo\ LG\ M:h14         " 字体 && 字号
+set guifont=Meslo\ LG\ M:h12         " 字体 && 字号
 
 " 自动判断编码时，依次尝试以下编码：
 set fileencodings=utf-8,ucs-bom,cp936,gbk,gb2312,big5,latin1
@@ -255,16 +252,16 @@ set fileencodings=utf-8,ucs-bom,cp936,gbk,gb2312,big5,latin1
 set ffs=unix,dos,mac
 
 "Action Script 语法高亮
-augroup filetypedetect
- au! BufNewFile,BufRead *.as set filetype=actionscript
- au! BufNewFile,BufRead *.md set filetype=markdown
- au! BufNewFile,BufRead *.hbs set filetype=mustache
-augroup END
+"augroup filetypedetect
+ "au! BufNewFile,BufRead *.as set filetype=actionscript
+ "au! BufNewFile,BufRead *.md set filetype=markdown
+ "au! BufNewFile,BufRead *.hbs set filetype=mustache
+"augroup END
 
-autocmd FileType actionscript setlocal shiftwidth=4 tabstop=4
+"autocmd FileType actionscript setlocal shiftwidth=4 tabstop=4
 
-autocmd FileType actionscript set omnifunc=actionscriptcomplete#CompleteAS
-autocmd FileType actionscript :set dictionary=~/.vim/dict/actionscript.dict
+"autocmd FileType actionscript set omnifunc=actionscriptcomplete#CompleteAS
+"autocmd FileType actionscript :set dictionary=~/.vim/dict/actionscript.dict
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -352,9 +349,9 @@ set foldlevel=9999
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ctrl-q: Quoted insert. Useful for doing key binding
 " Ctrl-w: Delete previous word, create undo point
-inoremap <c-w> <c-g>u<c-w>
+inoremap <c-d> <c-g>u<c-w>
 
-" Ctrl-e: Go to end of line
+" Ctrl-e: to end of line
 inoremap <c-e> <esc>A
 
 " Ctrl-r: Insert register
@@ -376,16 +373,16 @@ inoremap <c-a> <esc>I
 " Ctrl-d: Unindent shiftwidth
 
 " Ctrl-f: Move cursor left
-inoremap <c-f> <Left>
+inoremap <c-h> <c-o>h
 
 " Ctrl-g: Move cursor right
-inoremap <c-g> <Right>
+inoremap <c-l> <c-o>l
 
-" Ctrl-h: Move word left
-inoremap <c-h> <c-o>b
+" Ctrl-b: Move word left
+inoremap <c-b> <c-o>b
 
-" Ctrl-l: Move word right TODO bug
-inoremap <c-l> <c-o>w
+" Ctrl-w: Move word right
+inoremap <c-w> <c-o>w
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status line
@@ -421,8 +418,11 @@ nnoremap S "_ciw<c-r>0<Esc>
 vnoremap Z "_c<c-r>0<Esc>
 
 " 插入空行，但不进入插入模式
-nmap <F8> o<Esc>
-nmap <F9> O<Esc>
+"nmap <F8> o<Esc>
+"nmap <F9> O<Esc>
+
+nmap <F8> <c-w><
+nmap <F9> <c-w>>
 
 " 拷贝搜索匹配的行
 command! -register CopyMatches call CopyMatches(<q-reg>)
@@ -439,7 +439,7 @@ command! -register CopyMatches call CopyMatches(<q-reg>)
 " Returns true if paste mode is enabled
 function! HasPaste()
     if &paste
-        return 'PASTE MODE  '
+	return 'PASTE MODE  '
     en
     return ''
 endfunction
@@ -455,37 +455,37 @@ endfunction
 " => neocomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:neocomplete#cursor_hold_i_time = 1
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#max_list = 5
-let g:neocomplete#max_keyword_width = 30
-let g:neocomplete#enable_fuzzy_completion = 0
+"let g:neocomplete#enable_at_startup = 0
+"let g:neocomplete#enable_smart_case = 1
+"let g:neocomplete#max_list = 5
+"let g:neocomplete#max_keyword_width = 30
+"let g:neocomplete#enable_fuzzy_completion = 1
 
-" close preview window
-set completeopt-=preview
+"" close preview window
+"set completeopt-=preview
 
-" buffer的优先级提高
+"" buffer的优先级提高
 "call neocomplete#custom#source('nsnip', 'rank' , 1200)
 "call neocomplete#custom#source('buffer', 'rank' , 1000)
 
-" Plugin key-mappings.
+"" Plugin key-mappings.
 "inoremap <expr><C-g> neocomplete#undo_completion()
 "inoremap <expr><C-l> neocomplete#complete_common_string()
 
-" <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+"" <TAB>: completion.
+"inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
 
-" <BS>: close popup and delete backword char.
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<BS>"
+"" <BS>: close popup and delete backword char.
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<BS>"
 
-inoremap <expr><C-y> neocomplete#close_popup()
+"inoremap <expr><C-y> neocomplete#close_popup()
 
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
+"" <CR>: close popup and save indent.
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function()
+ "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+"endfunction
 
 " ruby completion
 "if !exists('g:neocomplete#force_omni_input_patterns')
@@ -578,7 +578,8 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => surround
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" csw' 增加单引号
+" ysiw' 增加单引号 csw == ysiw
+" ysiW) 右边括号内部不增加空格
 " v->select->S( 选中增加()
 " cs(' 替换(为'
 " ds' 删除引号
@@ -600,13 +601,19 @@ map <D-/> <Leader>c<Space>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " glob setting
 " Press <C-l> refresh candidate window
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_selecta'])
 call unite#custom#profile('default', 'context', {
      \   'start_insert' : 1
      \ })
+"call unite#custom#source('file,file/new,buffer,file_rec/async',
+      "\ 'matchers', 'matcher_fuzzy')
+
+"call unite#custom#source('buffer,file,file_rec/async',
+      "\ 'sorters', 'sorter_selecta')
 
 nnoremap <leader>ll :<C-u>UniteResume<CR>
+nnoremap <D-e> :<C-u>Unite buffer<CR>
 
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
@@ -624,15 +631,15 @@ let g:unite_source_grep_default_opts = '-i -f --nocolor --nogroup --hidden -U ' 
 let g:unite_source_grep_recursive_opt = ''
 
 " === find file
-nnoremap <c-m> :<C-u>Unite -start-insert file_rec/async:!<CR>
+nnoremap <c-m> :<C-u>Unite -start-insert file_rec/async<CR>
 
 "let g:unite_source_rec_async_command = ['ag', '-i', '-f', '-U', '--nocolor', '--nogroup', '-g', '']
-set wildignore=.svn,.svn/**,*.log,*.png,*.jpg,*.pl,swf_debug/*,flash_icons/*,*.un~,tmp/**,node_modules/**,.idea/**,dist/**,360/order/**
+set wildignore=.svn,.svn/**,*.log,*.png,*.jpg,*.pl,swf_debug/*,flash_icons/*,*.un~,tmp/**,node_modules/**,.idea/**,dist/**,360/order/**,.sass-cache/**
 call unite#custom#source('file_rec/async', 'ignore_globs', split(&wildignore, ','))
 
 " === yank history
 let g:unite_source_history_yank_enable = 1
-nnoremap <space>y :<C-u>Unite history/yank<CR>
+nnoremap <D-y> :<C-u>Unite history/yank<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => tag跳转
@@ -716,17 +723,17 @@ let Tlist_Close_On_Select = 1
 let Tlist_File_Fold_Auto_Close = 1
 let Tlist_WinWidth = 40
 let Tlist_Inc_Winwidth = 1
-autocmd BufWritePost * :TlistUpdate
+"autocmd BufWritePost * :TlistUpdate
 :set noballooneval
 :set balloondelay=100000
 :setlocal balloonexpr=
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => svn
+" => vcscommand
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let VCSCommandMapPrefix = '<Leader>z'
-nmap <leader>zd <Plug>VCSVimDiff
-nmap <leader>zR <Plug>VCSRevert
+let VCSCommandSVNDiffOpt = 'w'
+nmap <leader>zR :VCSRevert <CR>
 nmap <leader>zc :VCSCommit! <CR>
 
 "|<Leader>|za VCSAdd
@@ -750,4 +757,19 @@ nmap <leader>zc :VCSCommit! <CR>
 " => ngmy/vim-rubocop
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:instant_markdown_slow = 1
+"去除json文件自动隐藏引号
+set conceallevel=0
+
+" 终端里面自动根据状态不同而切换光标
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+"let g:Fzf_launcher = "~/scripts/fzf_launcher"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => tabular
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:tabular_loaded = 1
+
 
