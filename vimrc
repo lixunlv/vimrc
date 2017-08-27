@@ -116,7 +116,7 @@ cmap w!! w !sudo tee >/dev/null
 
 " 退出并删除buffer, <bar>用来分隔命令
 "nmap <F5> :wa<Bar>exe "mksession! " . v:this_session<Bar>:qa<CR>
-nmap <F5> :wa<Bar>:bd *<c-a><Bar>:qa<cr>
+"nmap <F5> :wa<Bar>:bd *<c-a><Bar>:qa<cr>
 
 "Fast reloading of the .vimrc
 map <silent> <leader>ss :source ~/.vimrc<cr>
@@ -231,6 +231,7 @@ filetype indent on
 syntax enable
 
 colorscheme solarized
+call togglebg#map("<F5>")
 set t_Co=256
 set background=dark
 
@@ -241,8 +242,8 @@ if has("gui_running")
   set guitablabel=%M\ %t
 endif
 
-"set guifont=Monaco:h14          " 字体 && 字号
 "set guifont=DejaVu_Sans_Mono:h14          " 字体 && 字号
+"set guifont=Monaco:h13          " 字体 && 字号
 set guifont=Meslo\ LG\ M:h12         " 字体 && 字号
 
 " 自动判断编码时，依次尝试以下编码：
